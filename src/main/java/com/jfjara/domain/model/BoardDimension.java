@@ -18,6 +18,14 @@ public class BoardDimension {
         return height;
     }
 
+    public boolean contains(MowerPosition mowerPosition) {
+        if ((mowerPosition.getX() < 0 || mowerPosition.getX() > width) ||
+                (mowerPosition.getY() < 0 || mowerPosition.getY() > height)) {
+            return false;
+        }
+        return true;
+    }
+
     public static class Builder {
 
         protected int width;

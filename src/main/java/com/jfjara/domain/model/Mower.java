@@ -34,4 +34,10 @@ public class Mower {
         }
     }
 
+    @Override
+    public String toString() {
+        return getMowerPosition().getX() + " " +
+                getMowerPosition().getY() + " " +
+                getCardinalDirection().getValueText();
+    }
 }

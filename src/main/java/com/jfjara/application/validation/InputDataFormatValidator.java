@@ -4,29 +4,31 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class InputDataValidator {
+public abstract class InputDataFormatValidator {
 
-    protected InputDataValidator nextValidator;
+    protected InputDataFormatValidator nextValidator;
     protected String regex;
 
-    public InputDataValidator(final InputDataValidator nextValidator) {
+    public InputDataFormatValidator(final InputDataFormatValidator nextValidator) {
         this.nextValidator = nextValidator;
     }
 
-    public InputDataValidator() {
+
+    public InputDataFormatValidator() {
 
     }
+
 
     public boolean validate(final List<String> textToValidate, int indexToValidate) {
         Pattern pattern = Pattern.compile(regex);
         Matcher mat = pattern.matcher(textToValidate.get(indexToValidate));
         if (mat.matches()) {
-            return nextValidator == null || nextValidator.validate(textToValidate, ++indexToValidate);
+            return (nextValidator == null || nextValidator.validate(textToValidate, ++indexToValidate));
         }
         return false;
     }
 
-    public void setNextValidator(final InputDataValidator validator) {
+    public void setNextValidator(final InputDataFormatValidator validator) {
         this.nextValidator = validator;
     }
 

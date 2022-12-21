@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface InputRepository {
 
-    List<String> readData();
+    List<String> readData(int totalMowers);
 
 
 }

@@ -1,11 +1,11 @@
 package com.jfjara.application.validation;
 
-public class ValidationFactory {
+public class FormatValidationFactory {
 
-    public static InputDataValidator build(int totalMowers) {
+    public static InputDataFormatValidator build(int totalMowers) {
 
         BoardDimensionValidator boardDimensionValidator = new BoardDimensionValidator();
-        InputDataValidator lastValidator = boardDimensionValidator;
+        InputDataFormatValidator lastValidator = boardDimensionValidator;
         for (int i = 0; i < totalMowers; i++) {
             StartPositionValidator startPositionValidator = new StartPositionValidator();
             MovementCommandsValidator movementCommandsValidator = new MovementCommandsValidator(startPositionValidator);
