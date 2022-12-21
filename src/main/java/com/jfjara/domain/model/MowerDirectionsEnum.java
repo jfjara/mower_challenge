@@ -3,7 +3,7 @@ package com.jfjara.domain.model;
 import java.util.Arrays;
 
 public enum MowerDirectionsEnum {
-    L('L'), R('R');
+    L('L'), R('R'), M('M');
 
     private final char value;
 

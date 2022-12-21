@@ -1,6 +1,5 @@
 package com.jfjara.domain.model;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public enum CardinalDirectionsEnum {
@@ -22,7 +21,7 @@ public enum CardinalDirectionsEnum {
                 .findFirst().getAsInt();
     }
 
-    public static CardinalDirectionsEnum rotate(final CardinalDirectionsEnum currentCardinalDirection,
+    public CardinalDirectionsEnum rotate(final CardinalDirectionsEnum currentCardinalDirection,
                                                 final MowerDirectionsEnum directionToRotate) {
 
         int index = getIndex(currentCardinalDirection);

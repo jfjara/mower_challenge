@@ -7,4 +7,9 @@ public class StartPositionValidator extends InputDataValidator {
         regex = "[0-9]*\\s[0-9]*\\s[NSEW]";
     }
 
+    public StartPositionValidator() {
+        super();
+        regex = "[0-9]*\\s[0-9]*\\s[NSEW]";
+    }
+
 }

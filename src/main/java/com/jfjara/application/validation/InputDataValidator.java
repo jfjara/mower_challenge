@@ -13,6 +13,10 @@ public abstract class InputDataValidator {
         this.nextValidator = nextValidator;
     }
 
+    public InputDataValidator() {
+
+    }
+
     public boolean validate(final List<String> textToValidate, int indexToValidate) {
         Pattern pattern = Pattern.compile(regex);
         Matcher mat = pattern.matcher(textToValidate.get(indexToValidate));
@@ -20,6 +24,10 @@ public abstract class InputDataValidator {
             return nextValidator == null || nextValidator.validate(textToValidate, ++indexToValidate);
         }
         return false;
+    }
+
+    public void setNextValidator(final InputDataValidator validator) {
+        this.nextValidator = validator;
     }
 
 }

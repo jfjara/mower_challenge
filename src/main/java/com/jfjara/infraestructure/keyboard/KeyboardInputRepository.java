@@ -31,6 +31,8 @@ public class KeyboardInputRepository implements InputRepository {
                 readStartPosition(),
                 readCommands(),
                 readStartPosition(),
+                readCommands(),
+                readStartPosition(),
                 readCommands());
     }
 }

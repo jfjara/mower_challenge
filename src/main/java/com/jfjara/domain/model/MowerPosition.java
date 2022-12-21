@@ -4,14 +4,11 @@ public class MowerPosition {
 
     private int x;
     private int y;
-    private CardinalDirectionsEnum direction;
-
     private Builder builder;
 
     private MowerPosition(Builder builder) {
         this.x = builder.x;
         this.y = builder.y;
-        this.direction = builder.direction;
         this.builder = builder;
     }
 
@@ -31,14 +28,38 @@ public class MowerPosition {
         return builder;
     }
 
-    public CardinalDirectionsEnum getDirection() {
-        return direction;
+    private boolean isAlignToAxis(final int mowerValue, final int boardValue) {
+        return mowerValue == boardValue;
+    }
+
+    public void moveTo(final CardinalDirectionsEnum cardinalDirection, final BoardDimension boardDimension) {
+        switch (cardinalDirection) {
+            case N -> {
+                if (!isAlignToAxis(this.getY(), boardDimension.getHeight())) {
+                    y++;
+                }
+            }
+            case S -> {
+                if (!isAlignToAxis(this.getY(), 0)) {
+                    y--;
+                }
+            }
+            case W -> {
+                if (!isAlignToAxis(this.getX(), 0)) {
+                    x--;
+                }
+            }
+            case E -> {
+                if (!isAlignToAxis(this.getX(), boardDimension.getWidth())) {
+                    x++;
+                }
+            }
+        }
     }
 
     public static class Builder {
         private int x;
         private int y;
-        private CardinalDirectionsEnum direction;
 
         public Builder() {
 
@@ -51,11 +72,6 @@ public class MowerPosition {
 
         public Builder y(int y) {
             this.y = y;
-            return this;
-        }
-
-        public Builder direction(CardinalDirectionsEnum d) {
-            this.direction = d;
             return this;
         }
 

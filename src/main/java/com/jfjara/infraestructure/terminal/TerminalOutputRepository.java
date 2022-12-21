@@ -1,6 +1,6 @@
 package com.jfjara.infraestructure.terminal;
 
-import com.jfjara.domain.model.MowerPosition;
+import com.jfjara.domain.model.Mower;
 import com.jfjara.domain.repository.OutputRepository;
 
 import java.util.List;
@@ -8,9 +8,11 @@ import java.util.List;
 public class TerminalOutputRepository implements OutputRepository {
 
     @Override
-    public void show(List<MowerPosition> positions) {
-        for (MowerPosition position : positions) {
-            System.out.println(position.getX() + " " + position.getY() + " " + position.getDirection().getValueText());
+    public void show(final List<Mower> mowers) {
+        for (Mower mower : mowers) {
+            System.out.println(mower.getMowerPosition().getX() + " " +
+                    mower.getMowerPosition().getY() + " " +
+                    mower.getCardinalDirection().getValueText());
         }
     }
 

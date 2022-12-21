@@ -1,22 +1,33 @@
 package com.jfjara.boot;
 
-import com.jfjara.application.usecase.InputDataUseCase;
-import com.jfjara.application.usecase.MainUseCase;
-import com.jfjara.application.usecase.OutputDataUseCase;
-import com.jfjara.application.usecase.ParseDataUseCase;
+import com.jfjara.application.usecase.*;
 import com.jfjara.infraestructure.keyboard.KeyboardInputRepository;
-import com.jfjara.infraestructure.parser.CustomParserRepository;
 import com.jfjara.infraestructure.terminal.TerminalOutputRepository;
+
+import java.util.List;
 
 public class ApplicationRunner {
 
+    private final InputDataUseCase inputDataUseCase = new InputDataUseCase(
+            new KeyboardInputRepository(),
+            new TerminalOutputRepository());
+    private final ObtainAreaUseCase obtainAreaUseCase = new ObtainAreaUseCase();
+    private final CreateMowersFromInputUseCase createMowersFromInputUseCase = new CreateMowersFromInputUseCase();
+    private final CreateActionsFromInputUseCase createActionsFromInputUseCase = new CreateActionsFromInputUseCase();
+    private final OutputDataUseCase outputDataUseCase = new OutputDataUseCase(new TerminalOutputRepository());
+
     public void run() {
-        MainUseCase mainUseCase = new MainUseCase(
-                new InputDataUseCase(new KeyboardInputRepository(), new TerminalOutputRepository()),
-                new ParseDataUseCase(new CustomParserRepository()),
-                new OutputDataUseCase(new TerminalOutputRepository())
-        );
-        mainUseCase.execute();
+
+        final List<String> inputData = inputDataUseCase.execute();
+        final var areaDimension = obtainAreaUseCase.execute(inputData.get(0));
+        var mowers = createMowersFromInputUseCase.execute(inputData);
+        final var actions = createActionsFromInputUseCase.execute(inputData);
+
+        for (int i = 0; i < mowers.size(); i++) {
+            mowers.get(i).apply(areaDimension, actions.get(i));
+        }
+
+        outputDataUseCase.execute(mowers);
     }
 
 }

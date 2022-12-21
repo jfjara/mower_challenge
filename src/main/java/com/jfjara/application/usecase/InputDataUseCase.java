@@ -11,7 +11,6 @@ public class InputDataUseCase {
 
     private final InputRepository inputRepository;
     private final OutputRepository outputRepository;
-    private final InputDataValidator validators = ValidationFactory.build();
 
     public InputDataUseCase(final InputRepository inputRepository, final OutputRepository outputRepository) {
         this.inputRepository = inputRepository;
@@ -23,6 +22,7 @@ public class InputDataUseCase {
         List<String> result = null;
         while (!validationOk) {
             result = inputRepository.readData();
+            InputDataValidator validators = ValidationFactory.build(result.size() - 1);
             validationOk = validators.validate(result, 0);
             if (!validationOk) {
                 outputRepository.error("Fields not valid. Try again");
